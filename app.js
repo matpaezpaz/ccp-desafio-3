@@ -20,11 +20,12 @@ elementoBoton.addEventListener('click', manejadorClick);
  * { nombre: 'nombre', apellido: 'apellido' }
  */
 
-
-// Funcion que maneja el click
-// agregrar código acá
 function manejadorClick() {
-    
+    const personaAgregar = { nombre: obtenerNombre(), apellido: obtenerApellido() }
+    if(obtenerNombre().length != 0 && obtenerApellido().length != 0){
+    agregarALista(personaAgregar)   
+    vaciarCampos()
+    }
 }
 
 
@@ -39,6 +40,10 @@ function vaciarCampoNombre() {
 }
 function vaciarCampoApellido() {
     elementoApellido.value = '';
+}
+function vaciarCampos() {
+    vaciarCampoApellido()
+    vaciarCampoNombre()
 }
 
 
