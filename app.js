@@ -24,9 +24,17 @@ elementoBoton.addEventListener('click', manejadorClick);
 // Funcion que maneja el click
 // agregrar código acá
 function manejadorClick() {
-    
+    const personaAAgregar = { nombre: obtenerNombre(), apellido: obtenerApellido() }
+    if(obtenerNombre().length !== 0 && obtenerApellido().length ) {
+    agregarALista(personaAAgregar);
+    vaciarCampos(); 
+    }
 }
 
+function vaciarCampos (){
+    vaciarCampoApellido;
+    vaciarCampoNombre;
+}
 
 function obtenerNombre() {
     return elementoNombre.value;
@@ -41,8 +49,8 @@ function vaciarCampoApellido() {
     elementoApellido.value = '';
 }
 
-
 // recibe objeto persona
+// {nomre, apeliido}
 function agregarALista(persona) {
     // Crear elemento 'li', que debe ir dentro de la etiqueta 'ul'
     const elementoNuevo = document.createElement('li');
