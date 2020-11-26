@@ -5,6 +5,12 @@ const elementoBoton = document.getElementById('agregar');
 // Agrega una función para manejar el evento click en el botón
 elementoBoton.addEventListener('click', manejadorClick);
 
+const personas = obtenerPersonasDeStorage()
+for(persona of personas){
+    agregarALista(persona)
+}
+
+
 /**
  * En la función manejadorClick, agregar el código para agregar una persona
  * a la lista.
@@ -20,15 +26,38 @@ elementoBoton.addEventListener('click', manejadorClick);
  * { nombre: 'nombre', apellido: 'apellido' }
  */
 
-function manejadorClick() {
+ function manejadorClick() {
     const personaAgregar = { nombre: obtenerNombre(), apellido: obtenerApellido() }
-    if(obtenerNombre().length != 0 && obtenerApellido().length != 0){
-    agregarALista(personaAgregar)   
-    vaciarCampos()
+    if(obtenerNombre().length != 0 && obtenerApellido().length != 0 && totalPalabras() < 5)  {
+        agregarALista(personaAgregar) 
+        agregarAStorage(personaAgregar)
+        vaciarCampos()    
     }
 }
 
+function agregarAStorage(persona){
+    const personas = obtenerPersonasDeStorage();
+    personas.push(persona)
+    localStorage.setItem('listaDePersonas', JSON.stringify(personas))
+}
 
+function obtenerPersonasDeStorage(){
+    let personas = localStorage.getItem('listaDePersonas');
+    if (personas === null) {
+        return []
+    }
+    return JSON.parse(personas)
+}
+
+function contarPalabrasNombre() {
+    return obtenerNombre().split(' ').length 
+}
+function contarPalabrasApellido() {
+    return obtenerApellido().split(' ').length
+}
+function totalPalabras() {
+    return contarPalabrasNombre() + contarPalabrasApellido()
+}
 function obtenerNombre() {
     return elementoNombre.value;
 }
