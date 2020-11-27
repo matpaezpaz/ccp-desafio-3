@@ -3,6 +3,11 @@ const elementoApellido = document.getElementById('apellido');
 const elementoBoton = document.getElementById('agregar');
 elementoBoton.addEventListener('click', manejadorClick);
 
+const personas = obtenerPersonasDeStorage();
+for(persona of personas) {
+    agregarALista(persona);
+}
+
 /**
  * En la función manejadorClick, agregar el código para agregar una persona
  * a la lista.
@@ -22,8 +27,23 @@ function manejadorClick() {
     const personaAAgregar = { nombre: obtenerNombre(), apellido: obtenerApellido() };
     if (obtenerNombre().length !== 0 && obtenerApellido().length !== 0) {
         agregarALista(personaAAgregar);
+        agregarAStorage(personaAAgregar);
         vaciarCampos();
     }
+}
+
+function agregarAStorage(persona) {
+    const personas = obtenerPersonasDeStorage();
+    personas.push(persona);
+    localStorage.setItem("listaDePersona", JSON.stringify(personas));
+}
+
+function obtenerPersonasDeStorage() {
+    let personas = localStorage.getItem("listaDePersona");
+    if (personas === null) {
+        return [];
+    }
+    return JSON.parse(personas);
 }
 
 function vaciarCampos() {
